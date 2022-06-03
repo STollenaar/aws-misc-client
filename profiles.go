@@ -9,6 +9,13 @@ import (
 	"strings"
 )
 
+var (
+	profileNameRe     = regexp.MustCompile(`\[|]`)
+	awsAccessRe       = regexp.MustCompile(`aws_access_key_id\s*=\s*`)
+	awsSecretAccessRe = regexp.MustCompile(`aws_secret_access_key\s*=\s*`)
+	awsSessionRe      = regexp.MustCompile(`aws_session_token\s*=\s*`)
+)
+
 // GetCoffees - Returns list of coffees (no auth required)
 func (c *Client) GetProfiles() ([]Profile, error) {
 	profiles := []Profile{}
@@ -18,8 +25,6 @@ func (c *Client) GetProfiles() ([]Profile, error) {
 		log.Fatal(err)
 	}
 	defer file.Close()
-
-	var re = regexp.MustCompile(`\[]`)
 
 	scanner := bufio.NewScanner(file)
 
@@ -34,13 +39,13 @@ func (c *Client) GetProfiles() ([]Profile, error) {
 				profiles = append(profiles, *currentProfile)
 				currentProfile = new(Profile)
 			}
-			currentProfile.Name = re.ReplaceAllString(currentLine, "")
+			currentProfile.Name = profileNameRe.ReplaceAllString(currentLine, "")
 		} else if strings.Contains(currentLine, "aws_access_key_id") {
-			currentProfile.AWSAccessKeyId = strings.ReplaceAll(currentLine, "aws_access_key_id=", "")
+			currentProfile.AWSAccessKeyId = awsAccessRe.ReplaceAllString(currentLine, "")
 		} else if strings.Contains(currentLine, "aws_secret_access_key") {
-			currentProfile.AWSSecretAccessKey = strings.ReplaceAll(currentLine, "aws_secret_access_key=", "")
+			currentProfile.AWSSecretAccessKey = awsSecretAccessRe.ReplaceAllString(currentLine, "")
 		} else if strings.Contains(currentLine, "aws_session_token") {
-			currentProfile.AWSSessionToken = strings.ReplaceAll(currentLine, "aws_session_token=", "")
+			currentProfile.AWSSessionToken = awsSessionRe.ReplaceAllString(currentLine, "")
 		} else if currentLine == "" {
 			profiles = append(profiles, *currentProfile)
 			currentProfile = nil

@@ -1,6 +1,9 @@
 package awsprofilerclient
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 // TestListProfiles defined data resource for the terraform plugin
 func TestListProfiles(t *testing.T) {
@@ -19,7 +22,10 @@ func TestListProfiles(t *testing.T) {
 	for _, profile := range profiles {
 		if profile.Name == "" {
 			t.Fatal("Error, Profile name is not defined\n")
+		} else if strings.Contains(profile.Name, "[") {
+			t.Fatal("Error, profile name is not stripped of brackets")
 		}
+
 		if profile.AWSAccessKeyId == "" {
 			t.Fatal("Error, AccesKeyId is not defined\n")
 		}
