@@ -7,7 +7,10 @@ import (
 
 // TestListProfiles defined data resource for the terraform plugin
 func TestListProfiles(t *testing.T) {
-	client := new(Client)
+	client, err := NewClient()
+	if err != nil {
+		t.Fatal(err)
+	}
 	profiles, err := client.GetProfiles()
 
 	if err != nil {
