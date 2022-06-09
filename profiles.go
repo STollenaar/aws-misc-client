@@ -51,6 +51,10 @@ func (c *Client) GetProfiles() ([]Profile, error) {
 			currentProfile = nil
 		}
 	}
+	if currentProfile != nil {
+		profiles = append(profiles, *currentProfile)
+		currentProfile = nil
+	}
 
 	if err := scanner.Err(); err != nil {
 		return nil, err
