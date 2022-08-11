@@ -1,3 +1,3 @@
-module github.com/STollenaar/aws-profiler-client
+module aws-misc-client
 
 go 1.18

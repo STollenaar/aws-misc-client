@@ -1,4 +1,4 @@
-package awsprofilerclient
+package profiles
 
 // Profile -
 type Profile struct {

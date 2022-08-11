@@ -1,4 +1,4 @@
-package awsprofilerclient
+package profiles
 
 import (
 	"bufio"
@@ -7,6 +7,8 @@ import (
 	"path"
 	"regexp"
 	"strings"
+
+	awsmisc "aws-misc-client"
 )
 
 var (
@@ -17,7 +19,7 @@ var (
 )
 
 // GetCoffees - Returns list of coffees (no auth required)
-func (c *Client) GetProfiles() ([]Profile, error) {
+func (c *awsmisc.Client) GetProfiles() ([]Profile, error) {
 	profiles := []Profile{}
 	credentialsFilePath := GetAWSCredentialsFilePath()
 	file, err := os.Open(credentialsFilePath)

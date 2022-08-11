@@ -1,4 +1,4 @@
-package awsprofilerclient
+package awsmisc
 
 // Client -
 type Client struct{}
