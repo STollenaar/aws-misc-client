@@ -7,8 +7,6 @@ import (
 	"path"
 	"regexp"
 	"strings"
-
-	awsmisc "aws-misc-client"
 )
 
 var (
@@ -18,8 +16,8 @@ var (
 	awsSessionRe      = regexp.MustCompile(`aws_session_token\s*=\s*`)
 )
 
-// GetCoffees - Returns list of coffees (no auth required)
-func (c *awsmisc.Client) GetProfiles() ([]Profile, error) {
+// GetProfiles - Returns list of profiles (no auth required)
+func (c *ProfileClient) GetProfiles() ([]Profile, error) {
 	profiles := []Profile{}
 	credentialsFilePath := GetAWSCredentialsFilePath()
 	file, err := os.Open(credentialsFilePath)
