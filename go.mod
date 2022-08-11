@@ -1,3 +1,3 @@
-module aws-misc-client
+module github.com/STollenaar/aws-misc-client
 
 go 1.18
