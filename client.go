@@ -6,13 +6,13 @@ import (
 
 // Client -
 type Client struct {
-	profiler *profiles.ProfileClient
+	Profiler *profiles.ProfileClient
 }
 
 // NewClient -
 func NewClient() (*Client, error) {
 	c := Client{
-		profiler: profiles.NewClient(),
+		Profiler: profiles.NewClient(),
 	}
 
 	return &c, nil
