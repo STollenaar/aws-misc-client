@@ -1,4 +1,4 @@
-package awsmiscclient
+package main
 
 import (
 	"github.com/STollenaar/aws-misc-client/lib/profiles"
